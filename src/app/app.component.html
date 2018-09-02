@@ -6,15 +6,17 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     autoFocus="false">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar class="mat-elevation-z2" color="primary">Menu</mat-toolbar>
     <mat-nav-list>
+      <a mat-list-item (click)="drawer.close()" routerLink="/">Home</a>
       <a mat-list-item href="#">Link 1</a>
       <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="mat-elevation-z2" color="primary">
+      <div id="logo"><a routerLink="/"><img src="assets/icons/icon-72x72.png" alt="Logo"></a></div>
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -22,10 +24,19 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>blog</span>
     </mat-toolbar>
     
-    <router-outlet></router-outlet>
+    <div id="main" class="mat-elevation-z1">
+      <router-outlet></router-outlet>
+    </div>
+    
+    <div id="footer">
+      <mat-toolbar color="primary">
+        <a routerLink="/privacy">Privacy</a> |
+        <a routerLink="/about">About Us</a> |
+        <a routerLink="/contact">Contact</a>
+      </mat-toolbar>
+    </div>
     
   </mat-sidenav-content>
 </mat-sidenav-container>
