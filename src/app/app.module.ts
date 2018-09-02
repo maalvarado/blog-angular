@@ -8,10 +8,20 @@ import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageComponent } from './page/page.component';
+import { CategoryComponent } from './category/category.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    PageComponent,
+    CategoryComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
