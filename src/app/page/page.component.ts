@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import { SeoService } from '../seo.service';
+
 @Component({
   selector: 'blog-page',
   templateUrl: './page.component.html',
@@ -16,11 +18,22 @@ export class PageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private db: AngularFireDatabase) { }
+    private db: AngularFireDatabase,
+    private seo: SeoService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.url[0].path;
     this.page$ = this.db.object(`pages/${id}`).valueChanges();
+
+    this.page$.subscribe( ( page: any ) => {
+      this.seo.generateTags({
+        title: page.title, 
+        description: page.description, 
+        image: page.featured_image,
+        slug: page.id,
+        type: 'website'
+      })
+    });
   }
 
 }

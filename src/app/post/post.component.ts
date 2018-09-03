@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import { SeoService } from '../seo.service';
+
 @Component({
   selector: 'blog-post',
   templateUrl: './post.component.html',
@@ -18,7 +20,8 @@ export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private db: AngularFireDatabase) { }
+    private db: AngularFireDatabase,
+    private seo: SeoService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -26,9 +29,17 @@ export class PostComponent implements OnInit {
       this.post$ = this.db.object(`posts/${id}`).valueChanges();
       this.last$ = this.db.list(`posts`, ref => ref.orderByChild('time').limitToLast( 7 ) ).valueChanges();
 
-      this.post$.subscribe( post => {
+      this.post$.subscribe( ( post : any ) => {
         if(!post){
           this.router.navigateByUrl('/404');
+        } else {
+          this.seo.generateTags({
+            title: post.title, 
+            description: post.description, 
+            image: post.featured_image,
+            slug: post.id,
+            type: 'article'
+          })
         }
       });
     });

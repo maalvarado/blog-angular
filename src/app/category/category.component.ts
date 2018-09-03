@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import { SeoService } from '../seo.service';
+
 @Component({
   selector: 'blog-category',
   templateUrl: './category.component.html',
@@ -17,7 +19,8 @@ export class CategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private db: AngularFireDatabase) { }
+    private db: AngularFireDatabase,
+    private seo: SeoService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -28,6 +31,16 @@ export class CategoryComponent implements OnInit {
         if(s.length === 0){
           this.router.navigateByUrl('/404');
         }
+      });
+
+      this.db.object(`pages/${this.id}`).valueChanges().subscribe( ( page: any ) => {
+        this.seo.generateTags({
+          title: page.title, 
+          description: page.description, 
+          image: page.featured_image,
+          slug: 'categoria/' + page.id,
+          type: 'website'
+        })
       });
     });
   }

@@ -19,6 +19,8 @@ import { PageComponent } from './page/page.component';
 import { CategoryComponent } from './category/category.component';
 import { PostComponent } from './post/post.component';
 
+import { SeoService } from './seo.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,9 @@ import { PostComponent } from './post/post.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    SeoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
