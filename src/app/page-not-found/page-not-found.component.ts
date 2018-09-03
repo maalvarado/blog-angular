@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'blog-page-not-found',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  page$: Observable<any>;
+
+  constructor(
+    private db: AngularFireDatabase) { }
 
   ngOnInit() {
+    this.page$ = this.db.object(`pages/page-not-found`).valueChanges();
   }
 
 }

@@ -1,3 +1,4 @@
-<p>
-  page-not-found works!
-</p>
+<div style="padding: 0 20px;">
+  <h1 class="mat-h1 blog-h1">{{ ( page$ | async )?.title }}</h1>
+  <div class="mat-body" [innerHTML]="( page$ | async )?.content"></div>
+</div>
