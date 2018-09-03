@@ -1,3 +1,22 @@
-<p>
-  post works!
-</p>
+<article>
+  <img mat-card-image fxFlexFill [src]="( post$ | async )?.featured_image">
+  <div style="padding: 0 15px;">
+    <h1 class="mat-h1">{{ ( post$ | async )?.title }}</h1>
+    <div class="mat-body" [innerHTML]="( post$ | async )?.content"></div>
+  </div>
+</article>
+
+<div class="blog-list" fxLayout="column">
+  <h1 class="mat-h1 blog-h1">Last News</h1>
+  <mat-list>
+    <div *ngFor="let item of ( last$ | async ); last as last">
+      <a routerLink="/{{ item.id }}">
+        <mat-list-item fxFlexFill>
+          <h3 fxFlex="65">{{ item.title }}</h3>
+          <img fxFlex="35" [src]="item.featured_image" alt="{{ item.title }}">
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </a>
+    </div>
+  </mat-list>
+</div>
