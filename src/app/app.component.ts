@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AngularFireDatabase } from 'angularfire2/database';
+
 @Component({
   selector: 'blog-root',
   templateUrl: './app.component.html',
@@ -14,7 +16,15 @@ export class AppComponent {
     .pipe(
       map(result => result.matches)
     );
-    
+  
+  categories: Observable<any[]>;
+
   constructor(
-    private breakpointObserver: BreakpointObserver) {}
+    private breakpointObserver: BreakpointObserver,
+    private db: AngularFireDatabase) {}
+
+  ngOnInit() {
+
+    this.categories = this.db.list('categories').valueChanges();
+  }
 }
