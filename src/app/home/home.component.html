@@ -1,3 +1,30 @@
-<p>
-  home works!
-</p>
+<div class="blog-grid" fxLayout="column">
+  <h1 class="mat-h1 blog-h1">TOP 3</h1>
+  <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+    <div fxFlex="30" *ngFor="let item of ( top$ | async )">
+      <a routerLink="/{{ item.id }}">
+        <mat-card>
+          <img mat-card-image [src]="item.featured_image" alt="{{ item.title }}">
+          <mat-card-header>
+            <mat-card-title>{{ item.title }}</mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="blog-list" fxLayout="column">
+  <h1 class="mat-h1 blog-h1">Last News</h1>
+  <mat-list>
+    <div *ngFor="let item of ( last$ | async ); last as last">
+      <a routerLink="/{{ item.id }}">
+        <mat-list-item fxFlexFill>
+          <h3 fxFlex="65">{{ item.title }}</h3>
+          <img fxFlex="35" [src]="item.featured_image" alt="{{ item.title }}">
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </a>
+    </div>
+  </mat-list>
+</div>
