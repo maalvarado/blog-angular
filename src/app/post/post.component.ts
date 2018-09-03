@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
         } else {
           this.seo.generateTags({
             title: post.title, 
-            description: post.description, 
+            description: post.summary, 
             image: post.featured_image,
             slug: post.id,
             type: 'article'

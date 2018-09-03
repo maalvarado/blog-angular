@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     this.db.object(`pages/home`).valueChanges().subscribe( ( page: any ) => {
       this.seo.generateTags({
         title: page.title, 
-        description: page.description, 
+        description: page.summary, 
         image: page.featured_image,
         slug: '',
         type: 'website'

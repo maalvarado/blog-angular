@@ -24,7 +24,7 @@ export class PageNotFoundComponent implements OnInit {
     this.page$.subscribe( ( page: any ) => {
       this.seo.generateTags({
         title: page.title, 
-        description: page.description, 
+        description: page.summary, 
         image: page.featured_image,
         slug: '404',
         type: 'website'

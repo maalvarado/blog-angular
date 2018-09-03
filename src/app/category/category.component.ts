@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
       this.db.object(`pages/${this.id}`).valueChanges().subscribe( ( page: any ) => {
         this.seo.generateTags({
           title: page.title, 
-          description: page.description, 
+          description: page.summary, 
           image: page.featured_image,
           slug: 'categoria/' + page.id,
           type: 'website'
