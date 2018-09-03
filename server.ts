@@ -8,6 +8,7 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import * as request from 'request';
 
 // Required for Firebase
 (global as any).WebSocket = require('ws');
@@ -23,6 +24,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 const APP_NAME = 'blog';
+const WP_URL = 'https://www.WP.com/';
 
 const { AppServerModuleNgFactory } = require(`./dist/${APP_NAME}-server/main`);
 
@@ -40,6 +42,26 @@ app.engine('html', (_, options, callback) => {
 
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, APP_NAME));
+
+app.get('/feed', (req, res) => {
+  
+  request( WP_URL + 'feed', { json: true }, (err, rs, body) => {
+    if (err) { return console.log(err); }
+    
+    res.set('Content-Type','application/rss+xml');
+    res.send(body);
+  });
+});
+
+app.get('/feed/instant-articles', (req, res) => {
+
+  request( WP_URL + 'feed/instant-articles', { json: true }, (err, rs, body) => {
+    if (err) { return console.log(err); }
+    
+    res.set('Content-Type','application/rss+xml');
+    res.send(body);
+  });
+});
 
 // Serve static files 
 app.get('*.*', express.static(join(DIST_FOLDER, APP_NAME)));
