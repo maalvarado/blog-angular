@@ -31,7 +31,7 @@ import { SeoService } from './seo.service';
     PostComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     LayoutModule,
     FlexLayoutModule,
