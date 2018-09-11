@@ -15,7 +15,7 @@
       <a routerLink="/{{ item.id }}">
         <mat-list-item fxFlexFill>
           <h3 fxFlex="65">{{ item.title }}</h3>
-          <img fxFlex="35" [src]="item.featured_image" alt="{{ item.title }}">
+          <img fxFlex="35" [src]="item.featured_image_sm" alt="{{ item.title }}">
           <mat-divider *ngIf="!last"></mat-divider>
         </mat-list-item>
       </a>
