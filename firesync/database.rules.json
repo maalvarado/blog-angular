@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth !== null",
+    "categories": {
+      "$category": {
+        "items": {
+          ".indexOn": [
+            "time",
+            "time_modified"
+          ]
+        }
+      }
+    },
+    "posts": {
+      ".indexOn": [
+        "time",
+        "time_modified"
+      ]
+    }
+  }
+}
