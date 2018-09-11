@@ -24,7 +24,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 const APP_NAME = 'blog';
-const WP_URL = 'https://www.WP.com/';
+const WP_URL = 'https://blog.aiio.xyz/';
 
 const { AppServerModuleNgFactory } = require(`./dist/${APP_NAME}-server/main`);
 

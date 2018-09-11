@@ -1,4 +1,4 @@
-service: blog
+service: sample
 runtime: nodejs
 env: flex
 
