@@ -35,7 +35,7 @@ function fireSync( $post_ID, $post, $update ){
 
 	$response = wp_remote_post( $webhook, array(
 		'body'  => array( 'hook' => $hook,
-                          'site'  => get_bloginfo( 'name' ) ) // The site name must be the exact match for 'https://NAME.firebaseio.com' on your db firebase
+                          'site'  => get_bloginfo( 'description' ) ) // The site description must be the exact match for 'https://NAME.firebaseio.com' on your db firebase
 	) );
 }
 
