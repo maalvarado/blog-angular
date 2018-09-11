@@ -2,6 +2,13 @@
     max-width: 100%;
 } 
   
-.mat-card-image {
-    max-height: 441px;
+article {
+    .featured_image {
+        display: flex;
+        background: lightgray;
+        min-height: 180px;
+    }
+    .mat-card-image {
+        max-height: 441px;
+    }
 }

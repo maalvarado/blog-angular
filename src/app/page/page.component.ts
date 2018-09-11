@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID  } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-
-import { Observable } from 'rxjs';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -14,26 +14,47 @@ import { SeoService } from '../seo.service';
 })
 export class PageComponent implements OnInit {
   
-  page$: Observable<any>;
+  page: any;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private route: ActivatedRoute,
     private db: AngularFireDatabase,
-    private seo: SeoService) { }
+    private seo: SeoService,
+    private transferState : TransferState) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.url[0].path;
-    this.page$ = this.db.object(`pages/${id}`).valueChanges();
+    const PAGE_KEY = makeStateKey('page');
 
-    this.page$.subscribe( ( page: any ) => {
-      this.seo.generateTags({
-        title: page.title, 
-        description: page.summary, 
-        image: page.featured_image,
-        slug: page.id,
-        type: 'website'
-      })
-    });
+    if( !this.transferState.hasKey(PAGE_KEY) ){
+    
+      const id = this.route.snapshot.url[0].path;
+      this.db.object(`pages/${id}`).valueChanges()
+              .subscribe( ( page : any ) => {
+                if( page ){
+
+                  this.seo.generateTags({
+                    title: page.title, 
+                    description: page.summary, 
+                    image: page.featured_image,
+                    slug: page.id,
+                    type: 'website'
+                  })
+
+                  this.page = page;
+
+                  if( isPlatformServer( this.platformId ) ) {
+                    this.transferState.set<any[]>(PAGE_KEY, page);
+                  }
+                  
+                }
+              });
+
+    } else {
+      this.page = this.transferState.get<any[]>(PAGE_KEY, null);
+      this.transferState.remove(PAGE_KEY);
+    }
+    
   }
 
 }
