@@ -37,7 +37,7 @@ exports.webhook = functions.https.onRequest((rq, rs) => {
         
         let post = snapshot.val();
 
-        if ( post ) {
+        if ( post && post.categories ) {
           
           post.categories.forEach( category => {
 
