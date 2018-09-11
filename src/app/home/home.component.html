@@ -1,7 +1,7 @@
 <div class="blog-grid" fxLayout="column">
   <h1 class="mat-h1 blog-h1">TOP 3</h1>
   <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-    <div fxFlex="30" *ngFor="let item of top">
+    <div fxFlex="30" fxFlex.xs="320" *ngFor="let item of top">
       <a routerLink="/{{ item.id }}">
         <mat-card>
           <img mat-card-image [src]="item.featured_image_sm" alt="{{ item ? item.title : '' }}">

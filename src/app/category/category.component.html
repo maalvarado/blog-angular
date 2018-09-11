@@ -1,10 +1,10 @@
 <div class="blog-grid" fxLayout="column">
   <h1 class="mat-h1 blog-h1">{{ id | uppercase }}</h1>
   <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-    <div fxFlex="30" *ngFor="let item of items">
+    <div fxFlex="30" fxFlex.xs="320" *ngFor="let item of items">
       <a routerLink="/{{ item.id }}">
         <mat-card>
-          <img mat-card-image [src]="item.featured_image" alt="{{ item.title }}">
+          <img mat-card-image [src]="item.featured_image_sm" alt="{{ item.title }}">
           <mat-card-header>
             <mat-card-title>{{ item.title }}</mat-card-title>
           </mat-card-header>
