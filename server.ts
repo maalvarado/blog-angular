@@ -43,24 +43,19 @@ app.engine('html', (_, options, callback) => {
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, APP_NAME));
 
+app.get('/wp-json/*', (req, res) => {
+  var url = WP_URL + req.url;
+  req.pipe( request( url ) ).pipe(res);
+});
+
 app.get('/feed', (req, res) => {
-  
-  request( WP_URL + 'feed', { json: true }, (err, rs, body) => {
-    if (err) { return console.log(err); }
-    
-    res.set('Content-Type','application/rss+xml');
-    res.send(body);
-  });
+  var url = WP_URL + req.url;
+  req.pipe( request( url ) ).pipe(res);
 });
 
 app.get('/feed/instant-articles', (req, res) => {
-
-  request( WP_URL + 'feed/instant-articles', { json: true }, (err, rs, body) => {
-    if (err) { return console.log(err); }
-    
-    res.set('Content-Type','application/rss+xml');
-    res.send(body);
-  });
+  var url = WP_URL + req.url;
+  req.pipe( request( url ) ).pipe(res);
 });
 
 // Serve static files 
